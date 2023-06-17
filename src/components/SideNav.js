@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PlaylistOptions from "./PlaylistOptions";
 import { setPlaylists } from "../utils/UserSlice";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const SideNav = () => {
   const Playlists = useSelector((store) => store.cart.playlists);
@@ -12,8 +13,12 @@ const SideNav = () => {
   return (
     <div className="border-2 h-[100vh] border-black flex-[0.2] bg-[#040404] text-white p-[10px] min-w-[230px]">
       <div className=" bg-[rgb(42,44,63)] flex flex-col">
-        <SideBarOptions option="Home" Icon={HomeIcon} />
-        <SideBarOptions option="Search" Icon={SearchIcon} />
+        <Link to="/Home">
+          <SideBarOptions option="Home" Icon={HomeIcon} />
+        </Link>
+        <Link to="/Search">
+          <SideBarOptions option="Search" Icon={SearchIcon} />
+        </Link>
       </div>
       <div className="text-white flex flex-col bg-[rgb(42,44,63)] h-full mt-4">
         <div className="m-4"> Your Library</div>
@@ -29,7 +34,13 @@ const SideNav = () => {
         <div className="mt-4 m-4">
           {Playlists?.items?.map((item) => {
             console.log(item);
-            return(<PlaylistOptions key={item.id} name={item.name} image={item.images[0].url}/>);
+            return (
+              <PlaylistOptions
+                key={item.id}
+                name={item.name}
+                image={item.images[0].url}
+              />
+            );
           })}
         </div>
       </div>

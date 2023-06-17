@@ -9,7 +9,9 @@ import { Provider } from "react-redux";
 import { CLIENT_ID } from "./config";
 import { useDispatch } from "react-redux";
 import store from "./utils/store";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Player from "./components/Player";
+import SongList from "./components/SongList";
 
 import {
   setUser,
@@ -55,19 +57,15 @@ const AppLayout = () => {
     }
   }, []);
 
-  return (
-    <>
-      {!Token ? <Login /> : 
-      <Player />
-      }
-    </>
-  );
+  return <>{!Token ? <Login /> : <Player />}</>;
 };
+
+
 
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <Provider store={store}>
-    <AppLayout />
+   <AppLayout/>
   </Provider>
 );
