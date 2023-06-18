@@ -6,6 +6,7 @@ const Header = () => {
 
     const user= useSelector((store)=>store.cart.user);
     console.log({user})
+    
   const [searchInput, setSearchInput] = useState("");
 
   return (

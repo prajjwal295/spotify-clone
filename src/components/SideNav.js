@@ -13,14 +13,14 @@ const SideNav = () => {
   return (
     <div className="border-2 h-[100vh] border-black flex-[0.2] bg-[#040404] text-white p-[10px] min-w-[230px]">
       <div className=" bg-[rgb(42,44,63)] flex flex-col">
-        <Link to="/Home">
-          <SideBarOptions option="Home" Icon={HomeIcon} />
-        </Link>
-        <Link to="/Search">
-          <SideBarOptions option="Search" Icon={SearchIcon} />
-        </Link>
+        {/* <Link to="/Home"> */}
+        <SideBarOptions option="Home" Icon={HomeIcon} />
+        {/* </Link> */}
+        {/* <Link to="/Search"> */}
+        <SideBarOptions option="Search" Icon={SearchIcon} />
+        {/* </Link> */}
       </div>
-      <div className="text-white flex flex-col bg-[rgb(42,44,63)] h-full mt-4">
+      <div className="text-white flex flex-col bg-[rgb(42,44,63)]  mt-4">
         <div className="m-4"> Your Library</div>
         <div className="flex m-4 justify-start">
           <buuton className="bg-black text-white mr-2">Playlists</buuton>
@@ -31,9 +31,9 @@ const SideNav = () => {
           <button>Search</button>
           <h1>Recents</h1>
         </div>
-        <div className="mt-4 m-4">
+        <div className="mt-4 m-4 overflow-y-scroll">
           {Playlists?.items?.map((item) => {
-            console.log(item);
+            // console.log(item);
             return (
               <PlaylistOptions
                 key={item.id}

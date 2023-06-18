@@ -9,9 +9,18 @@ import { Provider } from "react-redux";
 import { CLIENT_ID } from "./config";
 import { useDispatch } from "react-redux";
 import store from "./utils/store";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Router,
+  Route,
+  Routes,
+  Outlet,
+} from "react-router-dom";
 import Player from "./components/Player";
 import SongList from "./components/SongList";
+import Body from "./components/Body";
+import Search from "./components/Search";
 
 import {
   setUser,
@@ -51,7 +60,7 @@ const AppLayout = () => {
         dispatch(setPlaylists(playlists));
       });
 
-      spotify.getPlaylist(CLIENT_ID).then((playlist) => {
+      spotify.getPlaylist("37i9dQZEVXcXdmlS5hJ2ZV").then((playlist) => {
         dispatch(setDiscoverWeekly(playlist));
       });
     }
@@ -60,12 +69,50 @@ const AppLayout = () => {
   return <>{!Token ? <Login /> : <Player />}</>;
 };
 
-
-
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <Provider store={store}>
-   <AppLayout/>
+    <AppLayout />
   </Provider>
 );
+
+//   return (
+//     <>
+//       <Router>
+//         <Routes>
+//           <Route path="/" element={<>{!Token ? <Login /> : <Player />}</>} />
+//           <Route path="/#" element={<Player/>} />
+//         </Routes>
+//       </Router>
+//     </>
+//   );
+// };
+
+// const appRouter = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <AppLayout />,
+
+//     children: [
+//       {
+//         path: "/#",
+//         element: <Body />,
+//         children: [
+//           {
+//             path: "Home",
+//             element: <Body />,
+//           },
+//           {
+//             path: "Search",
+//             element: <Search />,
+//           },
+//           {
+//             path: "playlist/:id",
+//             element: <SongList />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ]);
