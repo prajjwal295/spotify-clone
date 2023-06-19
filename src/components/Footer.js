@@ -11,7 +11,7 @@ import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 h-[90px] text-white w-full  border-black bg-black p-[20px] flex justify-between mb-[5px] ">
+    <div className="fixed bottom-0 h-[10vh] text-white w-full  border-black bg-black p-[20px] flex justify-between mb-[5px]">
 
 
       <div className="flex-[0.3] flex items-center w-[300px]">

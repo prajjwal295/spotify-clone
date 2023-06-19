@@ -7,9 +7,11 @@ import { useDispatch } from "react-redux";
 import React from "react";
 import { useSelector } from "react-redux";
 import { setPlaying ,setItem} from "../utils/UserSlice";
+import Header from "./Header";
 
 const Search = () => {
   const discover = useSelector((store) => store.cart.discover_weekly);
+
 
   const dispatch = useDispatch();
 
@@ -39,7 +41,8 @@ const playSong = (id) => {
 };
 
   return (
-    <div>
+    <div className=" h-[90vh] flex-[0.8] bg-gradient-to-t from-[rgba(0,0,0,1)] to-[rgb(91,87,115)] overflow-y-scroll rounded-lg m-2 ml-0">
+      <Header />
       <div className="flex m-8">
         <img
           src={discover?.images[0]?.url}
@@ -66,7 +69,13 @@ const playSong = (id) => {
       <div className="mt-4 m-4 ">
         {discover?.tracks?.items?.map((item) => {
           // console.log(item);
-          return <SongList playSong={playSong} key={item?.track?.id} item={item?.track} />;
+          return (
+            <SongList
+              playSong={playSong}
+              key={item?.track?.id}
+              item={item?.track}
+            />
+          );
         })}
       </div>
     </div>

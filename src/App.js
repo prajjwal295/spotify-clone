@@ -17,7 +17,7 @@ import {
   Routes,
   Outlet,
 } from "react-router-dom";
-import Player from "./components/Player";
+import { Player } from "./components/Player";
 import SongList from "./components/SongList";
 import Body from "./components/Body";
 import Search from "./components/Search";
@@ -27,6 +27,7 @@ import {
   setToken,
   setPlaylists,
   setDiscoverWeekly,
+  setSpotify,
 } from "./utils/UserSlice";
 
 const AppLayout = () => {
@@ -41,7 +42,7 @@ const AppLayout = () => {
     // console.log(hash);
     window.location.hash = "";
     const _token = hash.access_token;
-    // console.log(_token);
+    console.log(_token);
 
     if (_token) {
       setToken(_token);
@@ -63,6 +64,8 @@ const AppLayout = () => {
       spotify.getPlaylist("37i9dQZEVXcXdmlS5hJ2ZV").then((playlist) => {
         dispatch(setDiscoverWeekly(playlist));
       });
+
+      dispatch(setSpotify(spotify));
     }
   }, []);
 
@@ -70,12 +73,6 @@ const AppLayout = () => {
 };
 
 const root = createRoot(document.getElementById("root"));
-
-root.render(
-  <Provider store={store}>
-    <AppLayout />
-  </Provider>
-);
 
 //   return (
 //     <>
@@ -89,30 +86,35 @@ root.render(
 //   );
 // };
 
-// const appRouter = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <AppLayout />,
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
 
-//     children: [
-//       {
-//         path: "/#",
-//         element: <Body />,
-//         children: [
-//           {
-//             path: "Home",
-//             element: <Body />,
-//           },
-//           {
-//             path: "Search",
-//             element: <Search />,
-//           },
-//           {
-//             path: "playlist/:id",
-//             element: <SongList />,
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ]);
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+
+      {
+        path: "Home",
+        element: <Body />,
+      },
+      {
+        path: "Search",
+        element: <Search />,
+      },
+      {
+        path: "playlist/:id",
+        element: <SongList />,
+      },
+    ],
+  },
+]);
+
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={appRouter} />
+  </Provider>
+);

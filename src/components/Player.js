@@ -3,14 +3,15 @@ import Footer from "./Footer";
 import SideNav from "./SideNav";
 import Body from "./Body";
 import Search from "./Search";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, RouterProvider } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Search from "./Search";
 import SongList from "./SongList";
 
-const Player = () => {
+export const Player = () => {
   return (
-    <div className="flex flex-col overflow-hidden">
-      <div className="flex flex-row">
+    <div className="flex flex-col overflow-hidden bg-black">
+      <div className="flex flex-row flex-[0.8]">
         <SideNav />
         {/* <Routes>
           <Route path="/#" element={<Body />} />
@@ -19,11 +20,11 @@ const Player = () => {
           <Route path="/playlist/:id" element={<SongList/>} />
         </Routes> */}
         .
-        <Body />
+        <Outlet/>
       </div>
-      <Footer />
+      <Footer className="flex-[0.2]" />
     </div>
   );
 };
 
-export default Player;
+export default <RouterProvider/>;

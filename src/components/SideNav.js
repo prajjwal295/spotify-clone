@@ -6,32 +6,63 @@ import PlaylistOptions from "./PlaylistOptions";
 import { setPlaylists } from "../utils/UserSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { BiLibrary } from "react-icons/Bi";
+import { FiSearch } from "react-icons/Fi";
+import { useState } from "react";
+
+// const filterData = (searchInput, Playlists) => {
+//   const result = Playlists.filter((playlist) =>
+//     playlist.items.name.toLowerCase().includes(searchInput.toLowerCase())
+//   );
+
+//   return result;
+// };
 
 const SideNav = () => {
   const Playlists = useSelector((store) => store.cart.playlists);
+  const [searchInput, setSearchInput] = useState("");
+  const [filterredPlaylist, setFillterPlaylist] = useState();
 
   return (
-    <div className="border-2 h-[100vh] border-black flex-[0.2] bg-[#040404] text-white p-[10px] min-w-[230px]">
-      <div className=" bg-[rgb(42,44,63)] flex flex-col">
-        {/* <Link to="/Home"> */}
+    <div className="  flex-[0.2] bg-[#040404] text-white p-[10px] min-w-[230px]">
+      <div className=" bg-[#131313] flex flex-col rounded-lg ">
+        <Link to="/Home">
         <SideBarOptions option="Home" Icon={HomeIcon} />
-        {/* </Link> */}
-        {/* <Link to="/Search"> */}
+        </Link>
+        <Link to="/Search">
         <SideBarOptions option="Search" Icon={SearchIcon} />
-        {/* </Link> */}
+        </Link>
       </div>
-      <div className="text-white flex flex-col bg-[rgb(42,44,63)]  mt-4">
-        <div className="m-4"> Your Library</div>
-        <div className="flex m-4 justify-start">
-          <buuton className="bg-black text-white mr-2">Playlists</buuton>
-          <buuton className="bg-black text-white mr-2">Albums</buuton>
-          <buuton className="bg-black text-white">Podcasts & Shows</buuton>
+
+      <div className="text-white flex flex-col bg-[#131313] mt-4 rounded-lg">
+        <div className="mx-4 mt-4 flex items-center  ">
+          <BiLibrary className="font-bold text-2xl mr-1" />
+          <h1>Your Library</h1>
         </div>
-        <div className="flex justify-between m-4 ">
-          <button>Search</button>
-          <h1>Recents</h1>
+
+        <div className="flex items-center justify-start m-4 mb-0">
+          <button
+            className=""
+            // onClick={() => {
+            //   const data = filterData(searchInput, Playlists?.items);
+            //   setFillterPlaylist(data);
+            // }}
+          >
+            <FiSearch className="text-lg mr-1 h-[25px]" />
+          </button>
+
+          <input
+            type="placeholder"
+            value={searchInput}
+            placeholder="Search in your library"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+            className=" bg-[rgb(42,44,63)] h-[25px] text-sm text-gray-200 pl-2"
+          />
         </div>
-        <div className="mt-4 m-4 overflow-y-scroll">
+
+        <div className="mt-4 m-4">
           {Playlists?.items?.map((item) => {
             // console.log(item);
             return (
