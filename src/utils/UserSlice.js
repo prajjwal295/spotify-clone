@@ -6,39 +6,44 @@ const UserSlice = createSlice({
     user: null,
     token: null,
     playlists: [],
-    spotify:null,
-    discover_weekly:null,
+    playlistsApi: [],
+    spotify: null,
+    discover_weekly: null,
     playing: false,
     item: null,
   },
 
   reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+      console.log("token", state.token);
+    },
     setUser: (state, action) => {
       state.user = action.payload;
       // console.log("user", state.user);
     },
     setItem: (state, action) => {
-      state.user = action.payload;
+      state.item = action.payload;
       // console.log("item", state.item);
     },
     setPlaying: (state, action) => {
-      state.user = action.payload;
+      state.playing = !state.playing;
       // console.log("playinh", state.playing);
-    },
-    setToken: (state, action) => {
-      state.token = action.payload;
-      console.log("token", state.token);
     },
     setPlaylists: (state, action) => {
       state.playlists = action.payload;
       // console.log("playlist", state.playlists);
+    },
+    setPlaylistApi: (state, action) => {
+      state.playlistsApi = action.payload;
+      console.log("playlistApi", state.playlistsApi);
     },
     setDiscoverWeekly: (state, action) => {
       state.discover_weekly = action.payload;
       // console.log("discover", state.discover_weekly);
     },
     setSpotify: (state, action) => {
-      state.discover_weekly = action.payload;
+      state.spotify = action.payload;
       // console.log("discover", state.discover_weekly);
     },
   },
@@ -49,6 +54,7 @@ export const {
   setUser,
   setToken,
   setPlaylists,
+  setPlaylistApi,
   setDiscoverWeekly,
   setItem,
   setPlaying,

@@ -1,28 +1,37 @@
 import React from "react";
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
+import PauseCircleOutlineOutlinedIcon from "@mui/icons-material/PauseCircleOutlineOutlined";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { Grid, Slider } from "@mui/material";
+// import { BsFillPauseCircleFill } from "react-icons/Bs";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+
+  const item = useSelector((store)=>store.cart.item);
+  console.log({item});
+  const playing = useSelector((store) => store.cart.playing);
+  
   return (
-    <div className="fixed bottom-0 h-[10vh] text-white w-full  border-black bg-black p-[20px] flex justify-between mb-[5px]">
-
-
+    <div className="fixed bottom-0 h-[10vh] text-white w-full items-center border-2 rounded-lg rounded-b-none  bg-black p-[20px]  flex justify-between ">
       <div className="flex-[0.3] flex items-center w-[300px]">
         <img
-          src="https://img.freepik.com/free-vector/stay-home-safe-poster-design_1017-25063.jpg?w=2000"
+          src={item?.album?.images[0]?.url}
           alt="album name"
-          className="w-[60px] mr-4 object-contain "
+          className="w-[50px] mr-4 object-contain "
         />
         <div>
-          <h2>Name</h2>
-          <h3>Arijit Singh</h3>
+          <h2 className="text-sm">{item?.name}</h2>
+          <h3 className="text-xs text-gray-600">
+            {item?.artists?.map((artist) => artist.name).join(", ")}
+            {item?.album?.name}
+          </h3>
         </div>
       </div>
 
@@ -30,7 +39,12 @@ const Footer = () => {
         <div className="flex justify-between items-center  min-w-[300px] ">
           <ShuffleIcon className="text-[#1ed15e]" />
           <SkipPreviousIcon />
-          <PlayCircleOutlineOutlinedIcon fontSize="large" />
+          {!playing ? (
+            <PlayCircleOutlineOutlinedIcon fontSize="large" />
+          ) : (
+            <PauseCircleOutlineOutlinedIcon fontSize="large" />
+          )}
+
           <SkipNextIcon />
           <RepeatIcon className="text-[#1ed15e]" />
         </div>

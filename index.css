@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 
-*.MuiSlider-root{
-    color:white
+.webkit::-webkit-scrollbar {
+    display: none;
 }

@@ -4,7 +4,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import PlaylistOptions from "./PlaylistOptions";
 import { setPlaylists } from "../utils/UserSlice";
-import { useSelector } from "react-redux";
+import { setPlaylistApi } from "../utils/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiLibrary } from "react-icons/Bi";
 import { FiSearch } from "react-icons/Fi";
@@ -22,15 +23,21 @@ const SideNav = () => {
   const Playlists = useSelector((store) => store.cart.playlists);
   const [searchInput, setSearchInput] = useState("");
   const [filterredPlaylist, setFillterPlaylist] = useState();
+  const dispatch = useDispatch();
+
+  const handleApi = (track) => {
+    dispatch(setPlaylistApi(track));
+    console.log({ track });
+  };
 
   return (
     <div className="  flex-[0.2] bg-[#040404] text-white p-[10px] min-w-[230px]">
       <div className=" bg-[#131313] flex flex-col rounded-lg ">
         <Link to="/Home">
-        <SideBarOptions option="Home" Icon={HomeIcon} />
+          <SideBarOptions option="Home" Icon={HomeIcon} />
         </Link>
         <Link to="/Search">
-        <SideBarOptions option="Search" Icon={SearchIcon} />
+          <SideBarOptions option="Search" Icon={SearchIcon} />
         </Link>
       </div>
 
@@ -66,11 +73,18 @@ const SideNav = () => {
           {Playlists?.items?.map((item) => {
             // console.log(item);
             return (
-              <PlaylistOptions
+              <Link
+                to={`/playlist/${item.id}`}
+                onClick={() => handleApi(item)}
                 key={item.id}
-                name={item.name}
-                image={item.images[0].url}
-              />
+              >
+                <PlaylistOptions
+                  key={item.id}
+                  name={item.name}
+                  image={item.images[0].url}
+                  track={item.tracks.href}
+                />
+              </Link>
             );
           })}
         </div>

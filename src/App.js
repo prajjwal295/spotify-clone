@@ -8,6 +8,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { Provider } from "react-redux";
 import { CLIENT_ID } from "./config";
 import { useDispatch } from "react-redux";
+import Tracks from "./components/Tracks";
 import store from "./utils/store";
 import {
   createBrowserRouter,
@@ -42,14 +43,17 @@ const AppLayout = () => {
     // console.log(hash);
     window.location.hash = "";
     const _token = hash.access_token;
-    console.log(_token);
+    // console.log(_token);
 
     if (_token) {
-      setToken(_token);
+       setToken(_token);
 
       spotify.getMe().then((_token) => {
         dispatch(setToken(_token));
+        console.log("from dispath", _token);
       });
+
+      // dispatch(setToken(_token));
 
       spotify.setAccessToken(_token);
 
@@ -107,7 +111,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "playlist/:id",
-        element: <SongList />,
+        element: <Tracks />,
       },
     ],
   },
